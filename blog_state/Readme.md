@@ -8,6 +8,10 @@ create a draft, request a review and then publish it.
 It intends to show how to implement functionalities using a
 **state pattern** (object-oriented design pattern).
 
+There is another implementation: [blog](../blog) which
+does not use state pattern but rather type sytem of rust.
+It encodes `state` and `behavior` as rust types.
+
 Requirements
 ---
 
