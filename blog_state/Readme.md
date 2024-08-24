@@ -16,6 +16,33 @@ Requirements
 3. When the post is approved, it gets published.
 4. Only published blog posts return content to print, so unapproved posts cannot accidentally be published.
 
+User case
+---
+
+```rust
+use blog_state::Post;
+
+fn main() {
+    let mut post = Post::new();
+
+    post.add_text("I ate a salad for lunch today");
+    assert_eq!("", post.content());
+
+    post.request_review();
+    assert_eq!("", post.content());
+
+    post.approve();
+    assert_eq!("I ate a salad for lunch today", post.content());
+}
+```
+
+Point of view
+---
+
+From a client's point of view, he observes that a `post` object
+does something. But in the underlying, a `state` object
+experiences transitions and does something.
+
 Design
 ---
 
@@ -96,29 +123,3 @@ impl Post {
 }
 ```
 
-point of view
----
-
-From a client's point of view, he observes a `post` object
-does something. But in the underlying, a `state` object
-experiences transitions and does something.
-
-User case
----
-
-```rust
-use blog_state::Post;
-
-fn main() {
-    let mut post = Post::new();
-
-    post.add_text("I ate a salad for lunch today");
-    assert_eq!("", post.content());
-
-    post.request_review();
-    assert_eq!("", post.content());
-
-    post.approve();
-    assert_eq!("I ate a salad for lunch today", post.content());
-}
-```
