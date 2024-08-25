@@ -47,7 +47,7 @@ From a client's point of view, he observes that a `post` object
 does something. But in the underlying, a `state` object
 experiences transitions and does something.
 
-Design
+State
 ---
 
 A post will experience ***state*** transitions:
@@ -79,7 +79,7 @@ impl State for PendengReview {/* PendingReview implementation */}
 impl State for Published     {/* Published implementation */}
 ```
 
-A state contains its "rules"
+Design
 ---
 
 We design a struct `Post` containing post contents and its current state.
@@ -88,6 +88,10 @@ has one and only one state at one time.
 
 The `state` object behaves in this way:
 each time a post calls a method, it will delegate to a method of its state.
+
+In other words, the `post` method is the "frontend" used by the
+user client whereas the `state` method is the "backend" which actually
+does the job.
 
 For example, post.content() delegates to a content method defined on
 its state:
