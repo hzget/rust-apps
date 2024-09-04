@@ -13,6 +13,6 @@ from a text file. It also shows the workflow of development using rust.
 It is implemented by ***state pattern*** programming.
 * [blog](./blog) - a blog library similar to [blog_state](./blog_state).
 But it is implemented using the ***type system*** of rust instead.
-* [threadpool](./threadpool) - a library to create a pool of thread for
-use
+* [threadpool](./threadpool) - a library to maintain a pool of thread
+for running tasks concurrently, independently and asynchronously.
 
