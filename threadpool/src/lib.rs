@@ -1,43 +1,12 @@
 use std::sync::{mpsc, Arc, Mutex};
 use std::thread;
 
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
-}
-
-struct Worker {
-    id: usize,
-    thread: Option<thread::JoinHandle<()>>,
-}
-
-impl Worker {
-    fn new(id: usize, rx: Arc<Mutex<mpsc::Receiver<Job>>>) -> Worker {
-        let handler = thread::spawn(move || loop {
-            let job = rx.lock().unwrap().recv();
-            match job {
-                Ok(job) => {
-                    println!("worker {} gets a job; executing...", id);
-                    job();
-                }
-                Err(_) => {
-                    println!("worker {} gets canned; exit...", id);
-                    return;
-                }
-            }
-        });
-        Worker {
-            id,
-            thread: Some(handler),
-        }
-    }
-}
-
-type Job = Box<dyn FnOnce() + Send + 'static>;
-
 pub struct ThreadPool {
     workers: Vec<Worker>,
     sender: Option<mpsc::Sender<Job>>,
 }
+
+type Job = Box<dyn FnOnce() + Send + 'static>;
 
 impl ThreadPool {
     pub fn new(size: usize) -> ThreadPool {
@@ -72,20 +41,36 @@ impl Drop for ThreadPool {
         drop(self.sender.take());
         for worker in &mut self.workers {
             if let Some(thread) = worker.thread.take() {
-                println!("shutting down worker {}", worker.id);
                 let _ = thread.join();
+                println!("worker {} exit.", worker.id);
             }
         }
     }
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+struct Worker {
+    id: usize,
+    thread: Option<thread::JoinHandle<()>>,
+}
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+impl Worker {
+    fn new(id: usize, rx: Arc<Mutex<mpsc::Receiver<Job>>>) -> Worker {
+        let handler = thread::spawn(move || loop {
+            let job = rx.lock().unwrap().recv();
+            match job {
+                Ok(job) => {
+                    println!("worker {id} gets a job; executing.");
+                    job();
+                }
+                Err(_) => {
+                    println!("Worker {id} disconnected; shutting down.");
+                    return;
+                }
+            }
+        });
+        Worker {
+            id,
+            thread: Some(handler),
+        }
     }
 }
