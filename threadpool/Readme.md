@@ -39,8 +39,23 @@ where
 Example
 ---
 
-threadpool can be used anywhere that needs such functionality:
+**threadpool** can be used anywhere that needs such functionality.
 
-[src/main.rs](./src/main.rs) creates a web server that uses
-threadpool to run tasks of each http connection.
+The following example is a tcp server that handles multiple connections
+concurrently.
+
+```rust
+fn main() {
+    let listener = TcpListener::bind("127.0.0.1:8080").unwrap();
+    // at most 4 tasks are running at the same time
+    let pool = threadpool::ThreadPool::new(4);
+
+    for stream in listener.incoming() {
+        let stream = stream.unwrap();
+
+        let task = || handle_connection(stream);
+        pool.execute(task); // asynchronously
+    }
+}
+```
 
