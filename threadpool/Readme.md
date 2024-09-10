@@ -17,12 +17,14 @@ wait for it to complete and do other jobs.
 and these threads reside in memory waiting for running tasks.
 
 2. Each time the user wants to run a task, just throw it to
-the pool via `ThreadPool::execute(task)`, and return
+the pool for running via `ThreadPool::execute(task)`, and return
 to other jobs.
+
+3. Current underlying implementation:
 This `execute()` method just sends the task to a FIFO queue,
 any idle thread will pick up a task from queue and run it.
 When the task is finished, the thread will return to the queue
-and begin a new circle.
+and begin a new cycle.
 
 API
 ---
