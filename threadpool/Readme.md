@@ -23,7 +23,7 @@ to other jobs.
 3. The `pool` will take an idle thread to run the task.
 Current underlying implementation:
 This `execute()` method just sends the task to a FIFO queue,
-any idle thread will pick up a task from queue and run it.
+and any idle thread will pick up a task from queue and run it.
 When the task is finished, the thread will return to the queue
 and begin a new cycle.
 
