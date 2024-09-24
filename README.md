@@ -15,4 +15,5 @@ It is implemented by ***state pattern*** programming.
 But it is implemented using the ***type system*** of rust instead.
 * [threadpool](./threadpool) - a library to maintain a pool of thread
 for running tasks concurrently, independently and asynchronously.
+* [list](./list) - a library that provides list-related utilities.
 
