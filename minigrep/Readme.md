@@ -53,14 +53,14 @@ minigrep
         |--- lib.rs
 ```
 
-[main.rs](./main.rs) is a binary crate to finish the function.
+[main.rs](./src/main.rs) is a binary crate to finish the function.
 It will:
 
 * "run" the grep function
 * print helper information for incorrect input
 * print error information
 
-[lib.rs](./lib.rs) is a library crate to implement searching funtions.
+[lib.rs](./src/lib.rs) is a library crate to implement searching funtions.
 It also contains test cases for those functions.
 
 * data structure "Config" to hold "options"

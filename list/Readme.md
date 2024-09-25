@@ -24,10 +24,18 @@ println!("{:?}", node_b.unwrap().data);
 ***Good Design***
 
 ```rust
-let mut list = LinkedList::new();
+let mut list = List::new();
 list.push(1);
 list.push(2);
 println!("{:?}", list.pop()); // Some(2)
 println!("{:?}", list.pop()); // Some(1)
 println!("{:?}", list.pop()); // None
 ```
+
+A ***GOOD*** design should be:
+
+* simple
+* intuitive
+* user-friendly
+* hide implementation details
+
