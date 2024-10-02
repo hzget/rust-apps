@@ -20,10 +20,10 @@ Related Technology
 
 | Applications | Technologies | Language Basic| 
 |:---:|:---|:---|
-|[minigrep](./minigrep)| Dev Workflow, CLI | lifetime, iterator filter |
+|[minigrep](./minigrep)| Dev Workflow, CLI, iterator filter |lifetime|
 |[blog_state](./blog_state)| (state) object-oriented, state transition,<br /> delegation | trait |
 |[blog](./blog)| type-oriented, type-transformation| |
 |[threadpool](./threadpool) | [CDD][CDD], multi-threads, mpmc | FnOnce, channel |
-|[list](./list) |API Design|generic, Option, module, unsafe|
+|[list](./list) |API Design, generic|Option, Iterator, mod, unsafe|
 
 [CDD]: https://hzget.github.io/programming/basic/cdd.html
