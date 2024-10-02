@@ -24,6 +24,6 @@ Related Technology
 |[blog_state](./blog_state)| (state) object-oriented, state transition,<br /> delegation | trait |
 |[blog](./blog)| type-oriented, type-transformation| |
 |[threadpool](./threadpool) | [CDD][CDD], multi-threads, mpmc | FnOnce, channel |
-|[list](./list) |API Design|generic, Option, module|
+|[list](./list) |API Design|generic, Option, module, unsafe|
 
 [CDD]: https://hzget.github.io/programming/basic/cdd.html

@@ -4,7 +4,7 @@ List
 `list` is a library that provides list-related utilities.
 
 * [x] stack
-* [ ] queue
+* [x] queue
 
 Stack Functionality
 ---
@@ -24,7 +24,7 @@ println!("{:?}", node_b.unwrap().data);
 ***Good Design***
 
 ```rust
-let mut list = List::new();
+let mut list = Stack::new();
 list.push(1);
 list.push(2);
 println!("{:?}", list.pop()); // Some(2)
