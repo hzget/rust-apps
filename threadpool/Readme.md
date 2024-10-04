@@ -62,3 +62,17 @@ fn main() {
 }
 ```
 
+Compiler-Driven Development (CDD)
+---
+
+Since we have designed the API, we can guild the
+development process utilizing the compiler's feedback.
+
+We can write a binary crate just like that in the
+***Exmaple*** section. Run it, fix the compiling
+errors and run it again. Continue the process
+until it works as expected.
+
+This the so-called [Compiler-Driven Development (CDD)][CDD].
+
+[CDD]: https://hzget.github.io/programming/basic/cdd.html
