@@ -5,6 +5,5 @@ struct Node<T> {
     next: Option<Box<Node<T>>>,
 }
 
-pub mod stack;
 pub mod queue;
-
+pub mod stack;
