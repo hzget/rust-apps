@@ -23,6 +23,7 @@ source code: [src/queue.rs](./src/queue.rs)
 
 * wrap the pointer in `Option`
 * generic
+* Iterator
 * raw pointer
 * unsafe code
 

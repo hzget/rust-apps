@@ -63,6 +63,14 @@ impl<T> Queue<T> {
     }
 }
 
+impl<T> Iterator for Queue<T> {
+    type Item = T;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        self.dequeue()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -81,4 +89,31 @@ mod tests {
         assert_eq!(list.dequeue(), Some("UnAuthorized"));
         assert_eq!(list.dequeue(), Some("OK"));
     }
+
+    #[test]
+    fn iteration() {
+        let mut list = Queue::new();
+        list.enqueue(0);
+        list.enqueue(1);
+        list.enqueue(2);
+        list.enqueue(3);
+        let mut i = 0;
+        for x in list {
+            assert_eq!(x, i);
+            i += 1;
+        }
+
+        let mut list = Queue::new();
+        list.enqueue(1);
+        list.enqueue(2);
+        list.enqueue(3);
+        list.enqueue(4);
+        let list = list.filter(|x| x % 2 == 0);
+        i = 2;
+        for x in list {
+            assert_eq!(x, i);
+            i += 2;
+        }
+    }
+
 }
