@@ -3,11 +3,13 @@ List
 
 `list` is a library that provides list-related utilities.
 
-* [x] stack
-* [x] queue
+* [x] [stack](./stack.md)
+* [x] [queue](./queue.md)
 
-Stack Functionality
+API DESIGN
 ---
+
+Take stack for example.
 
 ***Bad design***
 
