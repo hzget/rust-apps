@@ -87,6 +87,9 @@ mod tests {
 
     #[test]
     fn push_and_pop() {
+        let mut list: Stack<i32> = Stack::new();
+        assert_eq!(list.pop(), None);
+
         let mut list = Stack::new();
         assert_eq!(list.length(), 0);
         list.push(401);
@@ -95,6 +98,7 @@ mod tests {
         assert_eq!(list.pop(), Some(200));
         assert_eq!(list.pop(), Some(401));
         assert_eq!(list.length(), 0);
+        assert_eq!(list.pop(), None);
 
         let mut list = Stack::new();
         list.push("UnAuthorized");

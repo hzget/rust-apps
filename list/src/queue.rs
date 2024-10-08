@@ -79,11 +79,15 @@ mod tests {
 
     #[test]
     fn enqueue_and_dequeue() {
+        let mut list: Queue<i32> = Queue::new();
+        assert_eq!(list.dequeue(), None);
+
         let mut list = Queue::new();
         list.enqueue(401);
         list.enqueue(200);
         assert_eq!(list.dequeue(), Some(401));
         assert_eq!(list.dequeue(), Some(200));
+        assert_eq!(list.dequeue(), None);
 
         let mut list = Queue::new();
         list.enqueue("UnAuthorized");
