@@ -42,10 +42,13 @@ impl<T> Queue<T> {
         let raw_tail = Box::into_raw(Box::new(node));
 
         unsafe {
-            if let Some(x) = self.tail {
-                (*x).next = Some(Box::from_raw(raw_tail));
-            } else {
-                self.head = Some(Box::from_raw(raw_tail));
+            match self.tail {
+                Some(x) => {
+                    (*x).next = Some(Box::from_raw(raw_tail));
+                }
+                None => {
+                    self.head = Some(Box::from_raw(raw_tail));
+                }
             }
         }
         self.tail = Some(raw_tail);
@@ -53,10 +56,9 @@ impl<T> Queue<T> {
 
     pub fn dequeue(&mut self) -> Option<T> {
         self.head.take().map(|x| {
-            if let Some(next) = x.next {
-                self.head = Some(next);
-            } else {
-                self.tail = None;
+            match x.next {
+                Some(next) => self.head = Some(next),
+                None => self.tail = None,
             }
             x.data
         })
