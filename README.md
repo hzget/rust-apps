@@ -13,6 +13,7 @@ from a text file: `minigrep string filename.txt`
 * [blog](./blog) - a blog library similar to [blog_state](./blog_state).
 * [threadpool](./threadpool) - a library to maintain a pool of thread
 for running tasks concurrently, independently and asynchronously.
+* [webscraper](./webscraper) - a command line tool of a web scraper.
 * [list](./list) - a library that provides list-related utilities.
 
 Related Technology
@@ -24,6 +25,7 @@ Related Technology
 |[blog_state](./blog_state)| (state) object-oriented, state transition,<br /> delegation | trait |
 |[blog](./blog)| type-oriented, type-transformation| |
 |[threadpool](./threadpool) | [CDD][CDD], concurrency, FIFO queue | thread, FnOnce, channel |
+|[webscraper](./webscraper) | async | async |
 |[list](./list) |API Design, generic|Option, Iterator, mod, unsafe|
 
 [CDD]: https://hzget.github.io/programming/basic/cdd.html
