@@ -6,6 +6,7 @@
 //!    * generic
 //!    * implement Iterator
 //!    * size is checkable
+//!    * able to peek at the upcomming item
 //!
 //! Example:
 //!
@@ -23,6 +24,8 @@
 //!    let mut list = Stack::new();
 //!    list.push("yes");
 //!    list.push("no");
+//!    assert_eq!(list.peek(), Some("no").as_ref());
+//!    println!("{:?}", list.peek()); // Some("no")
 //!    println!("{:?}", list.pop()); // Some("no")
 //!    println!("{:?}", list.pop()); // Some("yes")
 //!    println!("{:?}", list.pop()); // None
@@ -68,6 +71,9 @@ impl<T> Stack<T> {
             x.data
         })
     }
+    pub fn peek(&self) -> Option<&T> {
+        self.head.as_ref().take().map(|x| &x.data)
+    }
     pub fn length(&self) -> i32 {
         self.length
     }
@@ -84,6 +90,26 @@ impl<T> Iterator for Stack<T> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn peek() {
+        let list: Stack<i32> = Stack::new();
+        assert_eq!(list.peek(), None);
+
+        let mut list = Stack::new();
+        list.push(401);
+        list.push(200);
+        assert_eq!(list.peek(), Some(200).as_ref());
+        assert_eq!(list.peek(), Some(200).as_ref());
+        list.pop();
+        list.pop();
+        assert_eq!(list.peek(), None);
+
+        let mut list = Stack::new();
+        list.push("UnAuthorized");
+        list.push("OK");
+        assert_eq!(list.peek(), Some("OK").as_ref());
+    }
 
     #[test]
     fn push_and_pop() {
