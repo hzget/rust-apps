@@ -7,6 +7,7 @@ the rust language.
 Applications
 ---
 
+* [guessing](./guessing) - an interactive guessing game
 * [minigrep](./minigrep) - a command line tool to search string
 from a text file: `minigrep string filename.txt`
 * [blog_state](./blog_state) - a blog library that can manage a post.
