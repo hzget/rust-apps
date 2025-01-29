@@ -22,11 +22,13 @@ Related Technology
 
 | Applications | Technologies | Language Basic| 
 |:---:|:---|:---|
-|[minigrep](./minigrep)| Dev Workflow, CLI, iterator filter |lifetime|
+|[minigrep](./minigrep)| Dev Workflow, CLI, iterator filter |lifetime, [Result&lt;T, E&gt;][Result]|
 |[blog_state](./blog_state)| (state) object-oriented, state transition,<br /> delegation | trait |
 |[blog](./blog)| type-oriented, type-transformation| |
 |[threadpool](./threadpool) | [CDD][CDD], concurrency, FIFO queue | thread, FnOnce, channel |
 |[webscraper](./webscraper) | async | async |
-|[list](./list) |API Design, generic|Option, Iterator, mod, unsafe|
+|[list](./list) |API Design, generic|[Option&lt;T&gt;][Option], Iterator, mod, unsafe|
 
 [CDD]: https://hzget.github.io/programming/basic/cdd.html
+[Result]: https://doc.rust-lang.org/std/result/index.html
+[Option]: https://doc.rust-lang.org/std/option/index.html
