@@ -16,6 +16,8 @@ from a text file: `minigrep string filename.txt`
 for running tasks concurrently, independently and asynchronously.
 * [webscraper](./webscraper) - a command line tool of a web scraper.
 * [list](./list) - a library that provides list-related utilities.
+* [limit-tracker](./limit-tracker) - a library to keep track of
+how close a value is to a maximum value and warn when the value is at certain levels
 
 Related Technology
 ---
