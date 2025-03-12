@@ -42,7 +42,7 @@ the mechanism for sending the messages: the application could
 put a message in the application, send an email, send a text message,
 or something else.
 The library doesn't need to know that detail. All it needs is something
-that implements a trait we'll provide called `Messenger`. 
+that implements a trait we've provided -- `Messenger`. 
 
 dive into the code [src/lib.rs](./src/lib.rs)
 
