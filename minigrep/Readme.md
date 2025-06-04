@@ -75,7 +75,7 @@ TDD - Test Driven Development
 Public API
 
 ```rust
-pub fn Config::build(args: &[String]) -> Result<Config, &str> {}
+pub fn Config::build(mut args: impl Iterator<Item = String>) -> Result<Config, &'static str {}
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {}
 ```
 
