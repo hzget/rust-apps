@@ -3,6 +3,8 @@
 `limit-tracker` create a library that tracks a value against a maximum value
 and sends messages based on how close to the maximum value the current value is.
 
+The logic of "how close" is hard coded in limit-tracker.
+
 ## Example Usage
 
 It could be used to keep track of a user's quota for the number
@@ -16,7 +18,7 @@ just send corresponding message. This rule is coded inside
 ```rust
 fn main() {
     let msnger = MyMessenger;
-    let a = Game::new(Counter::new(&msnger, 10));
+    let mut a = Game::new(LimitTracker::new(&msnger, 10));
     a.reward();
     a.reward();
     a.reward();

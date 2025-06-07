@@ -1,25 +1,29 @@
 use limit_tracker::*;
-use std::cell::RefCell;
-use std::ops::AddAssign;
 
-struct Game<'a> {
-    counter: RefCell<Counter<'a>>,
+struct Game<'a, T>
+where
+    T: limit_tracker::Messenger,
+{
+    tracker: LimitTracker<'a, T>,
 }
 
-impl<'a> Game<'a> {
-    fn new(counter: RefCell<Counter<'a>>) -> Self {
-        Game { counter }
+impl<'a, T> Game<'a, T>
+where
+    T: limit_tracker::Messenger,
+{
+    fn new(tracker: LimitTracker<'a, T>) -> Self {
+        Game { tracker }
     }
 
-    fn reward(&self) {
-        *self.counter.borrow_mut() += 1;
+    fn reward(&mut self) {
+        self.tracker += 1;
         // - actual code for rewarding -
     }
 }
 
 fn main() {
     let msnger = MyMessenger;
-    let a = Game::new(Counter::new(&msnger, 10));
+    let mut a = Game::new(LimitTracker::new(&msnger, 10));
     a.reward();
     a.reward();
     a.reward();
@@ -32,27 +36,6 @@ fn main() {
 
     a.reward(); // Urgent warning: You've used up over 90% of your quota!
     a.reward(); // Error: You are over your quota!
-}
-
-struct Counter<'a> {
-    count: usize,
-    tracker: LimitTracker<'a, MyMessenger>,
-}
-
-impl<'a> Counter<'a> {
-    fn new(msnger: &'a MyMessenger, max: usize) -> RefCell<Self> {
-        RefCell::new(Counter {
-            count: 0,
-            tracker: LimitTracker::new(msnger, max),
-        })
-    }
-}
-
-impl<'a> AddAssign<usize> for Counter<'a> {
-    fn add_assign(&mut self, other: usize) {
-        self.count = self.count + other;
-        self.tracker.set_value(self.count);
-    }
 }
 
 struct MyMessenger;
