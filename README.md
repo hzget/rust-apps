@@ -30,7 +30,7 @@ Related Technology
 |[threadpool](./threadpool) | [CDD][CDD], concurrency, FIFO queue | thread, FnOnce, channel |
 |[webscraper](./webscraper) | async | async |
 |[list](./list) |API Design, generic|[`Option<T>`][Option], Iterator, mod, unsafe|
-|[limit-tracker](./limit-tracker) | tracker, mock objects for testing | [`RefCell<T>`][RefCell] |
+|[limit-tracker](./limit-tracker) | tracker, mock objects for testing | [`RefCell<T>`][RefCell], trait |
 
 [CDD]: https://hzget.github.io/programming/basic/cdd.html
 [Result]: https://doc.rust-lang.org/std/result/index.html
