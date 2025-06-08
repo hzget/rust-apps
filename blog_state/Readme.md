@@ -1,5 +1,5 @@
 
-blog_state
+blog\_state
 ===
 
 `blog_state` is a crate that works for a post:
@@ -9,7 +9,7 @@ It intends to show how to implement functionalities using a
 **state pattern** (object-oriented design pattern).
 
 There is another implementation: [blog](../blog) which
-does not use state pattern but rather type sytem of rust.
+does not use state pattern but rather rust type system.
 It encodes `state` and `behavior` as rust types.
 
 Requirements
@@ -44,8 +44,8 @@ Point of view
 ---
 
 From a client's point of view, he observes that a `post` object
-does something. But in the underlying, a `state` object
-experiences transitions and does something.
+performed some actions. But in the underlying, a `state` object
+did the actual jobs and then experienced a state transition.
 
 State
 ---
@@ -53,18 +53,10 @@ State
 A post will experience ***state*** transitions:
 
 ```bash
-draft --> review --> published
+Draft --> PendingReview --> Published
 ```
 
-The rules of the blog post workflow will live in state objects.
-Each state will have its own logic rules. For example,
-a published state object -- a post object in the "published" status --
-can print the post contents. Others could not.
-
-All states implement a `State` trait which list all supported
-methods for a concret state. In other words, all states objects
-share the same methods but they have different implementation,
-i.e., different behavior.
+The `State` trait defines the interface of the ***state***s.
 
 ```rust
 trait State {
@@ -79,6 +71,8 @@ impl State for PendengReview {/* PendingReview implementation */}
 impl State for Published     {/* Published implementation */}
 ```
 
+Each state has its own behavior.
+
 Design
 ---
 
@@ -89,12 +83,11 @@ has one and only one state at one time.
 The `state` object behaves in this way:
 each time a post calls a method, it will delegate to a method of its state.
 
-In other words, the `post` method is the "frontend" used by the
-user client whereas the `state` method is the "backend" which actually
+In other words, the method of `post` is the "frontend" used by the
+user client whereas the method of `state` is the "backend" which actually
 does the job.
 
-For example, post.content() delegates to a content method defined on
-its state:
+Suppose a ***Draft*** post requests a review:
 
 ```rust
 pub struct Post {
@@ -102,32 +95,25 @@ pub struct Post {
     content: String,
 }
 
-impl Post {
-    pub fn content(&self) -> &str {
-        match &self.state {
-            Some(s) => s.content(self),  // <---- it contains rules in requirement
-            None => "",
-        }
-    }
-}
-```
-
-The behavior of post.content() depends on the behavior of its
-current state.
-
-state transitions
----
-
-The state "transition" works in the same way. The actual transition
-is done by the state object itself.
-
-```rust
+// "frontend"
 impl Post {
     pub fn request_review(&mut self) {
         if let Some(s) = self.state.take() {
+            // 1. delegates to State::request_review()
+            // 2. experience a state transition
             self.state = Some(s.request_review());
         }
     }
 }
+
+// "backend"
+impl State for Draft {
+    // 1. trigger a "review" request
+    // 2. return a new state
+    fn request_review(self: Box<Self>) -> Box<dyn State> {
+        Box::new(PendingReview {})
+    }
+}
+
 ```
 
