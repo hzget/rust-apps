@@ -1,65 +1,54 @@
-pub struct Post {
+pub struct Draft {
     content: String,
 }
 
-#[derive(Debug, PartialEq)]
-pub struct DraftPost {
+pub struct PendingReview {
     content: String,
 }
 
-pub struct PendingReviewPost {
+pub struct Published {
     content: String,
 }
 
-impl Post {
-    pub fn new() -> DraftPost {
-        DraftPost {
-            content: String::new(),
-        }
+pub fn new() -> Draft {
+    Draft {
+        content: String::new(),
+    }
+}
+
+impl Draft {
+    pub fn add_text(&mut self, text: &str) {
+        self.content.push_str(text);
     }
 
+    pub fn request_review(self) -> PendingReview {
+        PendingReview {
+            content: self.content,
+        }
+    }
+}
+
+impl PendingReview {
+    pub fn approve(self) -> Published {
+        Published {
+            content: self.content,
+        }
+    }
+}
+
+impl Published {
     pub fn content(&self) -> &str {
         &self.content
     }
 }
 
-impl DraftPost {
-    pub fn add_text(&mut self, text: &str) {
-        self.content.push_str(text);
-    }
-
-    pub fn request_review(self) -> PendingReviewPost {
-        PendingReviewPost {
-            content: self.content,
-        }
-    }
-}
-
-impl PendingReviewPost {
-    pub fn approve(self) -> Post {
-        Post {
-            content: self.content,
-        }
-    }
-}
-
 #[cfg(test)]
 mod tests {
-    use crate::{DraftPost, Post};
-
-    #[test]
-    fn new() {
-        assert_eq!(
-            DraftPost {
-                content: String::new()
-            },
-            Post::new()
-        );
-    }
+    use crate::new;
 
     #[test]
     fn content() {
-        let mut post = Post::new();
+        let mut post = new();
         post.add_text("hello");
         assert_eq!("hello", post.request_review().approve().content());
     }
