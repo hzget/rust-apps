@@ -45,8 +45,8 @@ pub struct Config {
 }
 
 const ENV_KEY: &str = "IGNORE_CASE";
-const ERROR_MISS_QUERY: Result<Config, &str> = Err("miss query string in the arguments");
-const ERROR_MISS_FILEPATH: Result<Config, &str> = Err("miss filepath in the arguments");
+const ERROR_MISS_QUERY: &str = "miss query string in the arguments";
+const ERROR_MISS_FILEPATH: &str = "miss filepath in the arguments";
 
 impl Config {
     /// Constructs a config for the grep functionality to run.
@@ -74,12 +74,12 @@ impl Config {
 
         let query = match args.next() {
             Some(arg) => arg,
-            None => return ERROR_MISS_QUERY,
+            None => return Err(ERROR_MISS_QUERY),
         };
 
         let file_path = match args.next() {
             Some(arg) => arg,
-            None => return ERROR_MISS_FILEPATH,
+            None => return Err(ERROR_MISS_FILEPATH),
         };
 
         let ignore_case = env::var(ENV_KEY).is_ok();
@@ -164,14 +164,14 @@ mod tests {
 
     fn case_config_build_with_invalid_args() {
         assert_eq!(
-            ERROR_MISS_QUERY.unwrap_err(),
+            ERROR_MISS_QUERY,
             Config::build(vec![].into_iter()).unwrap_err()
         );
 
         let mut v = Vec::new();
         v.push(String::from("minigrep"));
         assert_eq!(
-            ERROR_MISS_QUERY.unwrap_err(),
+            ERROR_MISS_QUERY,
             Config::build(v.into_iter()).unwrap_err()
         );
 
@@ -179,7 +179,7 @@ mod tests {
         v.push(String::from("minigrep"));
         v.push(String::from("say"));
         assert_eq!(
-            ERROR_MISS_FILEPATH.unwrap_err(),
+            ERROR_MISS_FILEPATH,
             Config::build(v.into_iter()).unwrap_err()
         );
     }
