@@ -33,8 +33,6 @@ Extra requirement:
 
 * write result to stdout, and write error info to stderr
 * print helper information if its argment is incorrect
-* support both case-sensitive and case-insensitive search,
-and it depends on whether environment variable `IGNORE_CASE` is set.
 
 Design the system structure
 ---
@@ -83,23 +81,20 @@ Underlying Functions
 
 ```rust
 fn search<'a>(query: &str, text: &'a str) -> Vec<&'a str> {}
-fn search_case_insensitive<'a>(query: &str, text: &'a str) -> Vec<&'a str> {}
 ```
 
 test cases:
 
 ```bash
-running 4 tests
+running 3 tests
 test tests::case_build ... ok
 test tests::case_run ... ok
 test tests::case_search ... ok
-test tests::case_search_case_insensitive ... ok
 ```
 
 ***Note:***
 
-`minigrep` uses Env variable `IGNORE_CASE` as a config option,
-the user shall avoid parallel testing. Just use the following:
+If the user want to avoid parallel testing, just use the following:
 
 ```bash
 cargo test -- --test-threads=1
