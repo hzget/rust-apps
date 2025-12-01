@@ -18,15 +18,12 @@ use std::time::Duration;
 use threadpool;
 
 fn main() {
-    let listener = TcpListener::bind("127.0.0.1:8080").unwrap();
+    let listener = TcpListener::bind("127.0.0.1:80").unwrap();
     let pool = threadpool::ThreadPool::new(4);
-
     for stream in listener.incoming().take(6) {
         let stream = stream.unwrap();
-
-        pool.execute(|| {
-            handle_connection(stream);
-        });
+        let task = || handle_connection(stream);
+        pool.execute(task);
     }
 }
 

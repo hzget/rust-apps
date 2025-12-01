@@ -59,8 +59,9 @@ impl Worker {
             let job = rx.lock().unwrap().recv();
             match job {
                 Ok(job) => {
-                    println!("worker {id} gets a job; executing.");
+                    println!("worker {id} gets a job. Executing..");
                     job();
+                    println!("worker {id} gets the job done.");
                 }
                 Err(_) => {
                     println!("Worker {id} disconnected; shutting down.");
